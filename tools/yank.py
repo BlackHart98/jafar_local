@@ -44,7 +44,6 @@ class GithubHost(RepoHost):
         self._target_user = target_manifest_user
         self._force = force
 
-    # Todo: replace curl with git, because git give a more clear reason for failure and it also helps in the case of private repository
     def fetch(self: t.Self, user_name: str, repo_name: str, **kwargs: t.Dict[str, t.Any]) -> bool:
         repo_url = f"{self._url}/{user_name}/{repo_name}"
         package_id = repo_name.lower()
@@ -59,7 +58,7 @@ class GithubHost(RepoHost):
             logging.error("Manifest file already exists!")
             return False
         else:
-            ret = s.run(["curl", "-L", repo_url, "--output", "/dev/null", "--silent"])
+            ret = s.run(["git", "ls-remote", repo_url, "--quiet"])
             if ret.returncode != 0:
                 logging.error(f"Could not fetch repository `{repo_url}`, verify the spelling of the repository name or check if internet connection is stable")
                 return False
