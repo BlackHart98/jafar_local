@@ -100,7 +100,7 @@ def main(argv: t.List[str]) -> None:
             return
         match (REPO_HOST[args_dict["-s"]]):
             case SupportedHost.GITHUB:
-                if not GithubHost().fetch(args_dict["-u"], args_dict["-r"]):
+                if not GithubHost(force=force).fetch(args_dict["-u"], args_dict["-r"]):
                     logging.error("Yanking failed!")
                 else:
                     logging.info("Yanking successfull!")
