@@ -74,7 +74,6 @@ class GithubHost(RepoHost):
                 return False
             
 
-# Todo: Implement arg parse
 def main(argv: t.List[str]) -> None:
     parser = argparse.ArgumentParser(
         prog="python tools/yank.py",
