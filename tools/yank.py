@@ -44,7 +44,7 @@ class GithubHost(RepoHost):
         self._target_user = target_manifest_user
         self._force = force
 
-    # this is a prototype
+    # Todo: replace curl with git, because git give a more clear reason for failure and it also helps in the case of private repository
     def fetch(self: t.Self, user_name: str, repo_name: str, **kwargs: t.Dict[str, t.Any]) -> bool:
         repo_url = f"{self._url}/{user_name}/{repo_name}"
         package_id = repo_name.lower()
@@ -52,7 +52,7 @@ class GithubHost(RepoHost):
         result = (
             "[package]\n"
             f"name={repo_name}\n"
-            f"name={repo_url}\n"
+            f"url={repo_url}\n"
         )
         file_exists = os.path.isfile(f"{package_path}/{package_id}.ini")
         if file_exists and not self._force:
